@@ -2,4 +2,5 @@ db.sqlite3
 media/**
 !media/**/
 !media/**/.gitkeep
+!media/default_content/
 __pycache__/
