@@ -1,0 +1,60 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Sign Up</title>
+        <link rel="icon" type="image/png" href="{% static 'cohesify/images/cohesify_favicon.png' %}">
+        <link rel="stylesheet" href="{% static 'cohesify/css/authentication_forms.css' %}">
+        <style>
+            #form-container {
+                padding: 10px;
+                border-radius: 20px;
+                width: 400px;
+                height: 550px;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                background-color: aliceblue;
+                border: 1px solid black;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div id="form-container">
+            <div id="logo">
+                <img src="{% static 'cohesify/images/cohesify_icon.png' %}" alt="Cohesify">
+            </div>
+            <h2>Create Account</h2>
+            <form action="{% url 'sign_up' %}" method="post">
+                {% csrf_token %}
+                <input type="text" placeholder="Username" name="username" value="{{ username }}" autocomplete="off" required>
+                <br>
+                <input type="text" placeholder="Email" name="email" value="{{ email }}" autocomplete="off" required>
+                <br>
+                <input type="password" placeholder="Password" name="password" value="{{ password }}" autocomplete="off" required>
+                <br>
+                <input type="password" placeholder="Confirm password" name="confirmation" value="{{ confirmation }}" autocomplete="off" required>
+                <br>
+                <input type="text" placeholder="First name" name="first_name" value="{{ first_name }}" autocomplete="off" required>
+                <br>
+                <input type="text" placeholder="Last name" name="last_name" value="{{ last_name }}" autocomplete="off" required>
+                <br>
+                <input type="submit" value="Create">
+            </form>
+            <div>
+                Already have an account? Log in <a href="{% url 'login' %}">here</a>.
+            </div>
+        </div>
+
+        {% if message %}
+            <div class="error-message">
+                {{ message }}
+            </div>
+        {% endif %}
+
+    </body>
+</html>

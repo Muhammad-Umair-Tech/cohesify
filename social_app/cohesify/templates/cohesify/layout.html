@@ -1,0 +1,123 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+
+        {% block title %}
+
+        {% endblock %}
+
+        <link rel="icon" type="image/png" href="{% static 'cohesify/images/cohesify_favicon.png' %}">
+        <link rel="stylesheet" href="{% static 'cohesify/css/styles.css' %}">
+        <script src="{% static 'cohesify/js/script.js' %}"></script>
+
+        {% block head %}
+
+        {% endblock %}
+
+    </head>
+    <body>
+        <div id="main-container">
+            
+            <div id="header-bar">
+                <div id="logo" data-redirect-link="{% url 'index' %}">
+                    <img src="{% static 'cohesify/images/cohesify_icon.png' %}" alt="Cohesify">
+                </div>
+                <div></div>
+
+                <div id="filter-div">
+                    {% if friends_selected %}
+                        <form id="filter_form" action="{% url 'friends' %}">
+                            <select name="filter">
+                                <option value="">People</option>
+                                <option value="ascending" {% if request.GET.filter == "ascending" %}selected{% endif %}>A-Z</option>
+                                <option value="descending" {% if request.GET.filter == "descending" %}selected{% endif %}>Z-A</option>
+                            </select>
+                        </form>
+                    {% elif profile_selected %}
+                        <form id="filter_form" action="{% url 'profile' %}">
+                            <select name="filter">
+                                <option value="">Friends</option>
+                                <option value="ascending" {% if request.GET.filter == "ascending" %}selected{% endif %}>A-Z</option>
+                                <option value="descending" {% if request.GET.filter == "descending" %}selected{% endif %}>Z-A</option>
+                                <option value="">Posts</option>
+                                <option value="latest" {% if request.GET.filter == "latest" %}selected{%endif%}>Latest</option>
+                                <option value="oldest" {% if request.GET.filter == "oldest" %}selected{% endif %}>Oldest</option>
+                            </select>
+                        </form>
+                    {% elif home_selected %}
+                        <form id="filter_form" action="{% url 'index' %}">
+                            <select name="filter">
+                                <option value="">Posts</option>
+                                <option value="latest" {% if request.GET.filter == "latest" %}selected{%endif%}>Latest</option>
+                                <option value="oldest" {% if request.GET.filter == "oldest" %}selected{% endif %}>Oldest</option>
+                                <option value="trending" {% if request.GET.filter == "trending" %}selected{% endif %}>Trending</option>
+                                <option value="images" {% if request.GET.filter == "images" %}selected{% endif %}>Images</option>
+                                <option value="videos" {% if request.GET.filter == "videos" %}selected{% endif %}>Videos</option>
+                            </select>
+                        </form>
+                    {% endif %}
+
+                </div>
+
+                <div id="search-bar">
+                    <form action="{% url 'search' %}">
+                        <input id="search_bar_keyword" type="text" name="keyword" placeholder="Search people and posts">
+                        <button id="search_bar_submit" type="submit">
+                            {% if search_selected %}
+                                <img src="{% static 'cohesify/images/search_selected_icon.png' %}" alt="Search">
+                            {% else %}
+                                <img src="{% static 'cohesify/images/search_icon.png' %}" alt="Search">
+                            {% endif %}
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="content">
+                <div id="side-bar">
+
+                    <div id="button-section">
+                        <button class="side-bar-button" id="home_button" data-redirect-link="{% url 'index' %}">
+                            {% if home_selected %}
+                                <img src="{% static 'cohesify/images/home_selected_icon.png' %}" alt="Home">
+                            {% else %}
+                                <img src="{% static 'cohesify/images/home_icon.png' %}" alt="Home">
+                            {% endif %}
+                            <span class="button-label">Home</span>
+                        </button>
+                        <button class="side-bar-button" id="friends_button" data-redirect-link="{% url 'friends' %}">
+                            {% if friends_selected %}
+                                <img src="{% static 'cohesify/images/friends_selected_icon.png' %}" alt="Filter">
+                            {% else %}
+                                <img src="{% static 'cohesify/images/friends_icon.png' %}" alt="Friends">
+                            {% endif %}
+                            <span class="button-label">Friends</span>
+                        </button>
+                        <button class="side-bar-button" id="profile_button" data-redirect-link="{% url 'profile' %}">
+                            {% if profile_selected %}
+                                <img src="{% static 'cohesify/images/profile_selected_icon.png' %}" alt="Profile">
+                            {% else %}
+                                <img class="side-bar-profile-pic" src="{{ user.profile_picture.url }}" alt="Profile">
+                            {% endif %}    
+                            <span class="button-label">{{ user.trimmed_firstname }}</span>
+                        </button>
+                        <button class="side-bar-button" id="logout_button" data-logout-url="{% url 'logout' %}">
+                            <img src="{% static 'cohesify/images/logout_icon.png' %}" alt="Logout">
+                            <span class="button-label">Logout</span>
+                        </button>
+                    </div>
+
+                </div>
+
+                <div id="main-screen">
+                    {% block body %}
+
+                    {% endblock %}
+                </div>
+            </div>
+
+        </div>
+    </body>
+</html>

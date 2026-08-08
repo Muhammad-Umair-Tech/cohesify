@@ -1,0 +1,208 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+    font-family: Arial;
+}
+
+#main-container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#header-bar {
+    position: sticky;
+    top: 0;
+
+    background-color: white;
+    width: auto;
+    height: 50px;
+    display: grid;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#search-bar {
+    border-radius: 20px;
+    background-color: aliceblue;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+}
+
+#search-bar form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#search-bar input[type="text"] {
+    width: 160px;
+    height: 30px;
+    border-radius: 20px;
+    border: 1px solid black;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-left: 10px;
+    background-color: white;
+}
+
+#search-bar button {
+    width: 30px;
+    margin-right: 10px;
+    border-radius: 20px;
+    border: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    background-color: aliceblue;
+    cursor: pointer;
+}
+
+#search-bar img {
+    width: 30px;
+    height: 30px;
+}
+
+#logo {
+    justify-self: center;
+    align-self: center;
+    cursor: pointer;
+}
+
+#logo > img {
+    width: 110px;
+    height: 40px;
+}
+
+#filter_form, #filter_form option {
+    height: 100%;
+
+    border-radius: 20px;
+    border: 1px solid black;
+    background-color: aliceblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.content {
+    width: auto;
+    flex: 1;
+    background-color: aliceblue;
+    display: grid;
+    grid-template-columns: 70px auto;
+    transition: grid-template-columns 0.3s ease;
+
+    height: auto;
+}
+
+.button-label {
+    opacity: 0;
+    width: 0px;
+    transition: width 0.3s ease, opacity 0.3s ease;
+}
+
+.content-expanded-sidebar {
+    grid-template-columns: 170px auto;
+}
+
+.content-expanded-sidebar .button-label {
+    opacity: 1;
+    width: 50px;
+}
+
+#side-bar {
+    padding-top: 5px;
+    padding-right: 20px;
+    padding-left: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: white;
+}
+
+#button-section {
+    position: fixed;
+}
+
+.side-bar-button {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: aliceblue;
+    border: 1px solid black;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+
+    transition: width 0.3s ease;
+}
+
+.side-bar-button > img {
+    width: 30px;
+    height: 30px;
+}
+
+.side-bar-profile-pic {
+    border-radius: 100%;
+}
+
+.side-bar-button-expanded {
+    width: 140px;
+    gap: 20px;
+}
+
+.user-card {
+    border: 1px solid black;
+
+    height: 60px;
+    display: grid;
+    grid-template-columns: 60px auto 70px;
+    margin-bottom: 10px;
+    padding: 5px;
+    align-items: center;
+    background-color: white;
+    border-radius: 20px;
+}
+
+.user-card > div, .user-card > button {
+    justify-content: center;
+    align-items: center;
+}
+
+.user-card input[type="submit"] {
+    height: 30px;
+    width: 70px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.remove_friend_button {
+    background-color: red;
+    color: white;
+}
+
+.add_friend_button {
+    background-color: #004aad;
+    color: white;
+}
+
+.profile-picture > img {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+}

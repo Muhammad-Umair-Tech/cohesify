@@ -1,0 +1,56 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Log In</title>
+        <link rel="icon" type="image/png" href="{% static 'cohesify/images/cohesify_favicon.png' %}">
+        <link rel="stylesheet" href="{% static 'cohesify/css/authentication_forms.css' %}">
+        <style>
+            #form-container {
+                padding: 10px;
+                border-radius: 20px;
+                width: 400px;
+                height: 350px;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                background-color: aliceblue;
+                border: 1px solid black;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div id="form-container">
+            <div id="logo">
+                <img src="{% static 'cohesify/images/cohesify_icon.png' %}" alt="Cohesify">
+            </div>
+            <div>
+                <h2>Log In</h2>
+            </div>
+            <div>
+                <form action="{% url 'login' %}" method="post">
+                    {% csrf_token %}
+                    <input type="text" placeholder="Username" name="username" value="{{ username }}" required>
+                    <br>
+                    <input type="password" placeholder="Password" name="password" value="{{ password }}" autocomplete="off" required>
+                    <br>
+                    <input type="submit" value="Log in">
+                </form>
+            </div>
+            <div>
+                Don't have an account? Create a new one <a href="{% url 'sign_up' %}">here</a>.
+            </div>
+        </div>
+
+        {% if message %}
+            <div class="error-message">
+                {{ message }}
+            </div>
+        {% endif %}
+
+    </body>
+</html>

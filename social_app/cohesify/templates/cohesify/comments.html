@@ -1,0 +1,163 @@
+{% extends "cohesify/layout.html" %}
+
+{% load static %}
+
+{% block title %}
+    <title>Comments</title>
+{% endblock %}
+
+{% block head %}
+    <style>
+        #header-bar {
+            grid-template-columns: 100px auto 70px 240px;
+        }
+
+        #comments-page {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #comments-container {
+            margin-top: 10px;
+            margin-bottom: 10px;          
+        }
+
+        @media(min-width: 499px) {
+            #comments-container, #comment-form-container, #redirect-button-container {
+                width: 600px;
+            }
+        }
+
+        @media(max-width: 900px) {
+            #comments-container, #comment-form-container, #redirect-button-container {
+                width: 300px;
+            }
+        }
+
+        #redirect-button-container {
+            margin-top: 10px;
+        }
+
+        #redirect-button-container > button {
+            border-radius: 20px;
+            height: 30px;
+            border: none;
+            width: 50px;
+            cursor: pointer;
+            background-color: aliceblue;
+        }
+
+        #redirect-button-container img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .comment-card {
+            border: 1px solid black;
+            border-radius: 20px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            min-width: 300px;
+            width: 100%;
+            padding-left: 10px;
+        }
+
+        .commenter-details {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .commenter-details > img {
+            height: 30px;
+            width: 30px;
+            border-radius: 100%;
+            margin-right: 10px;
+        }
+         
+        .commenter-details > div {
+            margin-right: 10px;
+        }
+
+        .comment-date {
+            font-size: 12px;
+        }
+
+        #comment-form-container {
+            margin-bottom: 10px;
+        }
+
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        #comment-form-container button {
+            margin: 10px;
+            height: 30px;
+            width: 100px;
+            color: white;
+            background-color: #004aad;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        textarea {
+            width: 300px;
+            height: 100px;
+            font-family: Arial;
+            border-radius: 20px;
+            padding: 10px;
+        }
+    </style>
+{% endblock %}
+
+{% block body%}
+    <div id="comments-page">
+        <div id="redirect-button-container">
+            <button>
+                <a href="{{ redirect_link }}">
+                    <img src="{% static 'cohesify/images/back_icon.png' %}" alt="Back">
+                </a>
+            </button>
+        </div>
+        <h1>Comments</h1>
+        {% if message %}
+            {{ message }}
+        {% endif %}
+        <div id="comments-container">
+            {% if not comments and not message %}
+                No comments.
+            {% else %}
+                {% for comment in comments %}
+                    <div class="comment-card">
+                        <div class="commenter-details">
+                            <img src="{{ comment.author.profile_picture.url }}" alt="PP">
+                            <div><strong>{{ comment.author.username }}</strong></div>
+                            <div class="comment-date">{{ comment.created_at }}</div>
+                        </div>
+                        <div class="comment-content">
+                            <div>{{ comment.text }}</div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div id="comment-form-container">
+            <form action="{% url 'comments' post_id %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="action_type" value="add_comment">
+                <input type="hidden" name="redirect_view" value="{{ redirect_view }}">
+                <textarea id="comment_text" name="comment_text" placeholder="Add comment..."></textarea>
+                <button id="comment_submit" type="submit">Comment</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,110 @@
+{% extends "cohesify/layout.html" %}
+
+{% block title %}
+    <title>Friends</title>
+{% endblock %}
+
+{% block head %}
+    <style>
+        #header-bar {
+            grid-template-columns: 100px auto 80px 230px;
+        }
+
+        #filter_form, #filter_form option {
+            width: 70px;
+        }
+    
+        #screen {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        #friends-container, #discover-container {
+            height: auto;
+            border-radius: 20px;
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        @media(min-width: 900px) {
+            #friends-container, #discover-container {
+                width: 600px;
+            }
+        }
+
+        @media(max-width: 499px) {
+            #friends-container, #discover-container {
+                width: 400px;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div id="screen">
+
+    {% if friends %}
+
+        <div id="friends-container">
+
+            <h1>Your Friends&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h1>
+
+            <div>
+                {% for friend in friends %}
+                    <div class="user-card">
+                        <div class="profile-picture">
+                            <img src="{{ friend.profile_picture.url }}" alt="Pic">
+                        </div>
+                        <div class="username">{{ friend.username }}</div>
+                        <form action="{% url 'friends' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{ friend.id }}">
+                            <input type="hidden" name="action_type" value="remove">
+                            <input type="hidden" name="redirect_view" value="friends">
+                            <input id="remove_friend_button" class="remove_friend_button" type="submit" value="Remove">
+                        </form>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+            
+    {% endif %}
+
+    <div id="discover-container">
+
+        <h1>Discover Friends</h1>
+
+        {% if not to_discover %}
+            None available.
+        {% endif %}
+
+        <div>
+            {% for u in to_discover %}
+                
+                <div class="user-card">
+                    <div class="profile-picture">
+                        <img src="{{ u.profile_picture.url }}" alt="Pic">
+                    </div>
+                    <div class="username">{{ u.username }}</div>
+                    <form action="{% url 'friends' %}" method="post">
+                        {% csrf_token %}
+                            <input type="hidden" name="id" value="{{ u.id }}">
+                            <input type="hidden" name="action_type" value="add">
+                            <input type="hidden" name="redirect_view" value="friends">
+                            <input type="submit" value="Add" id="add_friend_button" class="add_friend_button">
+                    </form>
+                </div>
+
+            {% endfor %}
+        </div>
+        
+    </div>
+
+</div>
+
+{% endblock %}
