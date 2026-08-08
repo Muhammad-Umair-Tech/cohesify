@@ -15,11 +15,11 @@ Cohesify is a social media web application that lets users share posts, connect 
 
 ## Tech Stack
 
-| Layer      | Technology                     |
-|------------|---------------------------------|
-| Backend    | Python, Django                  |
-| Frontend   | HTML, CSS, JavaScript           |
-| Database   | SQLite (via Django ORM)         |
+| Layer    | Technology              |
+| -------- | ----------------------- |
+| Backend  | Python, Django          |
+| Frontend | HTML, CSS, JavaScript   |
+| Database | SQLite (via Django ORM) |
 
 ## Screens
 
@@ -40,28 +40,34 @@ Cohesify is a social media web application that lets users share posts, connect 
 ### Installation
 
 1. Clone the repository:
+
    ```bash
    git clone <repository-url>
    cd cohesify
    ```
 
 2. Create and activate a virtual environment:
+
    ```bash
    python -m venv venv
    source venv/bin/activate   # On Windows: venv\Scripts\activate
    ```
 
 3. Install dependencies:
+
    ```bash
    pip install -r requirements.txt
    ```
 
 4. Apply database migrations:
+
    ```bash
+   cd social_app
    python manage.py migrate
    ```
 
 5. Run the development server:
+
    ```bash
    python manage.py runserver
    ```
