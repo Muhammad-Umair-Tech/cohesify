@@ -1,0 +1,5 @@
+db.sqlite3
+media/**
+!media/**/
+!media/**/.gitkeep
+__pycache__/
